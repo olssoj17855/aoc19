@@ -3,14 +3,14 @@ def parse(path):
         return [int(n) for n in file.read().split(",")]
 
 def exec(noun, verb, sequence):
-    ops = (None, lambda x,y: x+y, lambda x,y: x*y)
-    seq = [x for x in sequence]
+    ops = (None, lambda x,y: x+y, lambda x,y: x*y) # 1: add, 2: multiply
+    seq = [x for x in sequence] # deep copy not to modify input
     seq[1], seq[2] = noun, verb
-    for pos in range(0, len(seq), 4):
+    for pos in range(0, len(seq), 4): # every 4th position until end of sequence
         op, a, b, r = seq[pos:pos+4]
         if op == 99:
             break
-        seq[r] = ops[op](seq[a], seq[b])
+        seq[r] = ops[op](seq[a], seq[b]) # add or multiply
     return seq[0]
 
 def pair_giving_output(sought_output, seq):
